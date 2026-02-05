@@ -1,0 +1,102 @@
+name: Create Release
+
+on:
+  repository_dispatch:
+    types: [new-release]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout releases repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Download APK from main repo
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          github_token: ${{ secrets.MAIN_REPO_TOKEN }}
+          workflow: build-and-release.yml
+          run_id: ${{ github.event.client_payload.run_id }}
+          repo: mr-usely/coffee-pos-saas
+          name: app-release-${{ github.event.client_payload.version }}
+          path: ./temp
+          
+      - name: Setup release directory
+        run: |
+          VERSION="${{ github.event.client_payload.version }}"
+          echo "Setting up release for version: $VERSION"
+          mkdir -p releases/$VERSION
+          mv temp/app-release.apk releases/$VERSION/
+          ls -lh releases/$VERSION/
+          
+      - name: Generate CHANGELOG
+        run: |
+          VERSION="${{ github.event.client_payload.version }}"
+          COMMIT_MSG="${{ github.event.client_payload.commit_message }}"
+          
+          cat > releases/$VERSION/CHANGELOG.md << EOF
+          # Release $VERSION
+          
+          ## Changes
+          $COMMIT_MSG
+          
+          ## Release Date
+          $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          
+          ## Commit
+          [${{ github.event.client_payload.commit_sha }}](https://github.com/mr-usely/coffee-pos-saas/commit/${{ github.event.client_payload.commit_sha }})
+          EOF
+          
+          cat releases/$VERSION/CHANGELOG.md
+          
+      - name: Update latest.json
+        run: |
+          VERSION="${{ github.event.client_payload.version }}"
+          BUILD_NUMBER=$(echo $VERSION | cut -d'+' -f2)
+          FILE_SIZE=$(stat -c%s releases/$VERSION/app-release.apk 2>/dev/null || stat -f%z releases/$VERSION/app-release.apk)
+          COMMIT_MSG="${{ github.event.client_payload.commit_message }}"
+          
+          # Escape newlines and quotes in commit message for JSON
+          RELEASE_NOTES=$(echo "$COMMIT_MSG" | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
+          
+          cat > latest.json << EOF
+          {
+            "version": "$VERSION",
+            "versionCode": $BUILD_NUMBER,
+            "downloadUrl": "https://github.com/mr-usely/coffee-pos-releases/releases/download/v$VERSION/app-release.apk",
+            "releaseNotes": "$RELEASE_NOTES",
+            "releaseDate": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "minSupportedVersion": "1.0.0+5",
+            "fileSize": $FILE_SIZE
+          }
+          EOF
+          
+          echo "Updated latest.json:"
+          cat latest.json
+          
+      - name: Commit changes
+        run: |
+          VERSION="${{ github.event.client_payload.version }}"
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add releases/$VERSION/ latest.json
+          git commit -m "Release v$VERSION" || echo "No changes to commit"
+          git push
+          
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.event.client_payload.version }}
+          name: Release ${{ github.event.client_payload.version }}
+          body_path: releases/${{ github.event.client_payload.version }}/CHANGELOG.md
+          files: releases/${{ github.event.client_payload.version }}/app-release.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
