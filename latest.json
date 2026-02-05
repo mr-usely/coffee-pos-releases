@@ -1,10 +1,10 @@
 {
-    "version": "1.0.0+8",
-    "versionCode": 8,
-    "downloadUrl": "https://github.com/mr-usely/coffee-pos-releases/releases/download/v1.0.0+8/app-release.apk",
-    "releaseNotes": "- Test automated release workflow\n- Auto-updater integration complete\n- GitHub Actions will build and release automatically",
-    "releaseDate": "2026-02-05T14:55:00Z",
+    "version": "1.0.0+9",
+    "versionCode": 9,
+    "downloadUrl": "https://github.com/mr-usely/coffee-pos-releases/releases/download/v1.0.0+9/app-release.apk",
+    "releaseNotes": "- Testing auto-update flow end-to-end\n- Verifying GitHub release integration\n- url_launcher APK installation working",
+    "releaseDate": "2026-02-05T15:46:00Z",
     "minSupportedVersion": "1.0.0+5",
-    "fileSize": 80900000,
+    "fileSize": 80700000,
     "sha256": ""
 }
