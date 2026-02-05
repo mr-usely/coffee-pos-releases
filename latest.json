@@ -1,9 +1,9 @@
 {
-    "version": "1.0.0+7",
-    "versionCode": 7,
-    "downloadUrl": "https://github.com/mr-usely/coffee-pos-releases/releases/download/v1.0.0+7/app-release.apk",
-    "releaseNotes": "- Fixed Station Setup screen centering\n- Fixed critical user data isolation bug\n- Improved subscription sync with retry mechanism\n- Fixed iOS simulator database issues",
-    "releaseDate": "2026-02-05T13:26:00Z",
+    "version": "1.0.0+8",
+    "versionCode": 8,
+    "downloadUrl": "https://github.com/mr-usely/coffee-pos-releases/releases/download/v1.0.0+8/app-release.apk",
+    "releaseNotes": "- Test automated release workflow\n- Auto-updater integration complete\n- GitHub Actions will build and release automatically",
+    "releaseDate": "2026-02-05T14:55:00Z",
     "minSupportedVersion": "1.0.0+5",
     "fileSize": 80900000,
     "sha256": ""
