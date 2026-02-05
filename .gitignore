@@ -1,0 +1,14 @@
+# Temporary files
+*.tmp
+*.log
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Build artifacts (keep only committed releases)
+*.apk.tmp
+*.aab

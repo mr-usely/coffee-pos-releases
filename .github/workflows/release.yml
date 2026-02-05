@@ -1,0 +1,83 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (e.g., 1.0.0+7)'
+        required: true
+        type: string
+      release_notes:
+        description: 'Release notes'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout releases repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Download APK from main repo
+        run: |
+          # This assumes you've uploaded the APK as an artifact from the main repo
+          # Or you can manually upload it before running this workflow
+          echo "APK should be manually uploaded or passed via artifact"
+      
+      - name: Create release directory
+        run: |
+          mkdir -p releases/${{ inputs.version }}
+      
+      - name: Create CHANGELOG
+        run: |
+          cat > releases/${{ inputs.version }}/CHANGELOG.md << 'EOF'
+          # Release ${{ inputs.version }}
+          
+          ## Changes
+          ${{ inputs.release_notes }}
+          
+          ## Release Date
+          $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          EOF
+      
+      - name: Update latest.json
+        run: |
+          cat > latest.json << 'EOF'
+          {
+            "version": "${{ inputs.version }}",
+            "versionCode": $(echo "${{ inputs.version }}" | cut -d'+' -f2),
+            "downloadUrl": "https://github.com/${{ github.repository }}/releases/download/v${{ inputs.version }}/app-release.apk",
+            "releaseNotes": "${{ inputs.release_notes }}",
+            "releaseDate": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "minSupportedVersion": "1.0.0+5",
+            "fileSize": 0,
+            "sha256": ""
+          }
+          EOF
+      
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Release v${{ inputs.version }}" || echo "No changes to commit"
+          git push
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ inputs.version }}
+          name: Release ${{ inputs.version }}
+          body: ${{ inputs.release_notes }}
+          files: releases/${{ inputs.version }}/app-release.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
