@@ -23,7 +23,7 @@ jobs:
           github_token: ${{ secrets.MAIN_REPO_TOKEN }}
           workflow: build-and-release.yml
           run_id: ${{ github.event.client_payload.run_id }}
-          repo: mr-usely/coffee-pos-saas
+          repo: mr-usely/coffee-pos
           name: app-release-${{ github.event.client_payload.version }}
           path: ./temp
           
