@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0+16",
-  "versionCode": 16,
-  "downloadUrl": "https://github.com/mr-usely/coffee-pos-releases/releases/download/v1.0.0+16/app-release.apk",
-  "releaseNotes": "Fix: Update GitHub token for releases access and bump to v1.0.0+16",
-  "releaseDate": "2026-02-06T06:06:35Z",
+  "version": "1.0.0+17",
+  "versionCode": 17,
+  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/351544170",
+  "releaseNotes": "Bump version to 1.0.0+17 to test API URL downloads",
+  "releaseDate": "2026-02-06T06:27:41Z",
   "minSupportedVersion": "1.0.0+5",
-  "fileSize": 85702575
+  "fileSize": 85702576
 }
