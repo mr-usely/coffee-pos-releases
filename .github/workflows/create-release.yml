@@ -55,21 +55,43 @@ jobs:
           
           cat releases/$VERSION/CHANGELOG.md
           
-      - name: Update latest.json
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.event.client_payload.version }}
+          name: Release ${{ github.event.client_payload.version }}
+          body_path: releases/${{ github.event.client_payload.version }}/CHANGELOG.md
+          files: releases/${{ github.event.client_payload.version }}/app-release.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Get Asset ID and Update latest.json
         run: |
           VERSION="${{ github.event.client_payload.version }}"
           BUILD_NUMBER=$(echo $VERSION | cut -d'+' -f2)
           FILE_SIZE=$(stat -c%s releases/$VERSION/app-release.apk 2>/dev/null || stat -f%z releases/$VERSION/app-release.apk)
           COMMIT_MSG="${{ github.event.client_payload.commit_message }}"
           
+          # Get the release ID and fetch asset ID
+          RELEASE_TAG="v$VERSION"
+          ASSET_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/tags/${RELEASE_TAG}" | \
+            jq -r '.assets[] | select(.name == "app-release.apk") | .id')
+          
+          echo "Asset ID: $ASSET_ID"
+          
           # Escape newlines and quotes in commit message for JSON
           RELEASE_NOTES=$(echo "$COMMIT_MSG" | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
           
+          # Use GitHub API URL for private repo downloads
           cat > latest.json << EOF
           {
             "version": "$VERSION",
             "versionCode": $BUILD_NUMBER,
-            "downloadUrl": "https://github.com/mr-usely/coffee-pos-releases/releases/download/v$VERSION/app-release.apk",
+            "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/${ASSET_ID}",
             "releaseNotes": "$RELEASE_NOTES",
             "releaseDate": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
             "minSupportedVersion": "1.0.0+5",
@@ -89,14 +111,4 @@ jobs:
           git commit -m "Release v$VERSION" || echo "No changes to commit"
           git push
           
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ github.event.client_payload.version }}
-          name: Release ${{ github.event.client_payload.version }}
-          body_path: releases/${{ github.event.client_payload.version }}/CHANGELOG.md
-          files: releases/${{ github.event.client_payload.version }}/app-release.apk
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
