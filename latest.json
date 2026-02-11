@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0+20",
-  "versionCode": 20,
-  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/351597139",
-  "releaseNotes": "fix: Set minSdkVersion to 23 for camera library compatibility",
-  "releaseDate": "2026-02-06T08:59:28Z",
+  "version": "1.0.0+24",
+  "versionCode": 24,
+  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/353909021",
+  "releaseNotes": "chore: bump frontend version to 1.0.0+24",
+  "releaseDate": "2026-02-11T00:25:34Z",
   "minSupportedVersion": "1.0.0+5",
-  "fileSize": 85702658
+  "fileSize": 87867434
 }
