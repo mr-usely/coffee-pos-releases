@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0+27",
-  "versionCode": 27,
-  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/354854253",
-  "releaseNotes": "chore(frontend): bump version to 1.0.0+27",
-  "releaseDate": "2026-02-12T15:33:41Z",
+  "version": "1.0.0+29",
+  "versionCode": 29,
+  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/355068837",
+  "releaseNotes": "fix: resolve build syntax error in tax_compliance_screen.dart",
+  "releaseDate": "2026-02-12T23:59:33Z",
   "minSupportedVersion": "1.0.0+5",
-  "fileSize": 83237655
+  "fileSize": 83861231
 }
