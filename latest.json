@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0+24",
-  "versionCode": 24,
-  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/353909021",
-  "releaseNotes": "chore: bump frontend version to 1.0.0+24",
-  "releaseDate": "2026-02-11T00:25:34Z",
+  "version": "1.0.0+26",
+  "versionCode": 26,
+  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/354751821",
+  "releaseNotes": "chore(frontend): Bump version to 1.0.0+26",
+  "releaseDate": "2026-02-12T11:20:33Z",
   "minSupportedVersion": "1.0.0+5",
-  "fileSize": 87867434
+  "fileSize": 83237591
 }
