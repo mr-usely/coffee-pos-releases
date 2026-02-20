@@ -18,12 +18,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Download APK from main repo
-        uses: dawidd6/action-download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          github_token: ${{ secrets.MAIN_REPO_TOKEN }}
-          workflow: build-and-release.yml
-          run_id: ${{ github.event.client_payload.run_id }}
-          repo: mr-usely/coffee-pos
+          github-token: ${{ secrets.MAIN_REPO_TOKEN }}
+          run-id: ${{ github.event.client_payload.run_id }}
+          repository: mr-usely/coffee-pos
           name: app-release-${{ github.event.client_payload.version }}
           path: ./temp
           
