@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0+30",
-  "versionCode": 30,
-  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/358568695",
-  "releaseNotes": "new features in v30",
-  "releaseDate": "2026-02-19T13:35:34Z",
+  "version": "1.0.0+36",
+  "versionCode": 36,
+  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/359037543",
+  "releaseNotes": "fix(ci): trigger fresh v4 build pipeline with 1.0.0+36",
+  "releaseDate": "2026-02-20T07:27:26Z",
   "minSupportedVersion": "1.0.0+5",
-  "fileSize": 83959375
+  "fileSize": 84057675
 }
