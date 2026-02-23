@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0+38",
-  "versionCode": 38,
-  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/359398820",
-  "releaseNotes": "New: fix erre build",
-  "releaseDate": "2026-02-20T22:00:22Z",
+  "version": "1.0.0+40",
+  "versionCode": 40,
+  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/360900514",
+  "releaseNotes": "Fix bugs in Enterprise mode, Pro and Lite Subs",
+  "releaseDate": "2026-02-23T16:54:17Z",
   "minSupportedVersion": "1.0.0+5",
-  "fileSize": 84074151
+  "fileSize": 84841947
 }
