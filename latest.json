@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0+43",
-  "versionCode": 43,
-  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/361309689",
-  "releaseNotes": "fix: robust version checking for app auto-updater NEW build for v43",
-  "releaseDate": "2026-02-24T07:24:03Z",
+  "version": "1.0.0+44",
+  "versionCode": 44,
+  "downloadUrl": "https://api.github.com/repos/mr-usely/coffee-pos-releases/releases/assets/361340476",
+  "releaseNotes": "fix(frontend): resolve infinite update loop by strictly passing parsed build numbers for flutter version comparison",
+  "releaseDate": "2026-02-24T08:37:20Z",
   "minSupportedVersion": "1.0.0+5",
   "fileSize": 84858567
 }
