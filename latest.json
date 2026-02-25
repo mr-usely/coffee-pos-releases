@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0+53",
-  "versionCode": 53,
-  "downloadUrl": "https://github.com/mr-usely/coffee-pos-releases/releases/download/v1.0.0+53/app-release.apk",
+  "version": "1.0.0+54",
+  "versionCode": 54,
+  "downloadUrl": "https://github.com/mr-usely/coffee-pos-releases/releases/download/v1.0.0+54/app-release.apk",
   "releaseNotes": "",
-  "releaseDate": "2026-02-25T13:26:42Z",
+  "releaseDate": "2026-02-25T16:27:08Z",
   "minSupportedVersion": "1.0.0+5",
   "fileSize": 85629539
 }
